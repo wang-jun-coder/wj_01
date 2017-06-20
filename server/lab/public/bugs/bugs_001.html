@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>奇闻异bugs-001</title>
+    <script type="text/javascript" src="../javascripts/jsCallMobile.js"></script>
+</head>
+<input type="text" maxlength="11" style="ime-mode:Disabled; font-size: xx-large; border-color: antiquewhite">
+<input style="font-family:微软雅黑; letter-spacing:0.1em; -webkit-appearance:none; font-size: xx-large" type="button" value="我是按钮" onclick="buttonClick()">
+<input style="font-family:微软雅黑; letter-spacing:0.1em; -webkit-appearance:none; font-size: xx-large" type="button" value="我是获取信息按钮" onclick="getNativeUserInfo()">
+<script>
+
+    <!-- 按钮点击事件-->
+    function buttonClick() {
+        var para = {
+            "title" : "分享标题",
+            "content" : "分享内容",
+            "url" : "https://www.wangjuncoder.cn",
+            "thumb" : "https://www.wangjuncoder.cn/content/images/2017/04/timg.jpeg"
+        }
+        jsCallUIWebView("shareClick", para);
+    }
+
+    function getNativeUserInfo() {
+        var userInfo = jsCallUIWebView("js_getUserInfo", {});
+        alert("getNativeUserInfo: " + JSON.stringify(userInfo));
+    }
+
+</script>
+
+</body>
+</html>
