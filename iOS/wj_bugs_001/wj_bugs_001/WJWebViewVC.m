@@ -43,6 +43,7 @@ JSExportAs(shareClick, - (void)js_shareClick:(NSDictionary *)param);
     self.webView.scalesPageToFit = YES;
     self.webView.delegate = self;
     [self.webView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1]];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,6 +74,8 @@ JSExportAs(shareClick, - (void)js_shareClick:(NSDictionary *)param);
     // 关联对应 js 方法
     self.context[@"JSCallMobile"] = self;
 
+    // 测试原生调用 js
+    NSString *result = [self nativeCallJs];
 }
 
 #pragma mark =============== WJJSExport ===============
@@ -105,6 +108,7 @@ JSExportAs(shareClick, - (void)js_shareClick:(NSDictionary *)param);
     
     /**
      // 错误写法, web 若不进行特殊处理则会崩溃(如: http://lab.wangjuncoder.cn:3001/bugs/bugs_001.html)
+     即使 web 做了特殊处理, 此处回调依然不是在主线程中
      UIViewController *vc = [[UIViewController alloc] init];
      vc.view.backgroundColor = [UIColor whiteColor];
      [self.navigationController presentViewController:vc animated:YES completion:nil];
@@ -114,6 +118,11 @@ JSExportAs(shareClick, - (void)js_shareClick:(NSDictionary *)param);
      */
 }
 
+- (NSString *)nativeCallJs
+{
+    NSString *js = @"(function(){return \"哈哈哈,我是 js 返回的信息\"})()";
+    return [self.webView stringByEvaluatingJavaScriptFromString:js];
+}
 
 
 @end
