@@ -1,0 +1,77 @@
+extends layout
+block content
+    h1= title
+    p Welcome to #{title}
+    button(onClick="setLocalStorage()") 设置 localstorage
+    button(onClick="getLocalStorage()") 取出 localstorage
+    button(onClick="modifyLocalStorage()") 修改 localstorage
+    button(onClick="removeLocalStorage()") 删除 localstorage
+    button(onClick="getAllLocalStorage()") 获取所有 localstorage
+    button(onClick="reload()") 刷新当前页
+    //script(type="text/javascript",src="#{locals.global.app_sever_url_for_app}/javascripts/jquery-1.7.2.min.js")
+    script.
+        // 存储 localstorage
+        function setLocalStorage() {
+            var localStorageCache = {
+                pageNum: 10,
+                pageSize: 100,
+                index: 98
+            };
+            var cache = JSON.stringify(localStorageCache);
+            console.log("set localstorage: " + cache);
+            sj_setLocalStorageWithKeyAndValue("testLocalStorage", cache, 30);
+        }
+        // 取出 localstorage
+        function getLocalStorage() {
+            var ls = sj_getLocalStorageWithKey("testLocalStorage");
+            console.log("get localstorage: " + ls);
+        }
+        // 修改 localstorage
+        function modifyLocalStorage() {
+            var localStorageCache = {
+                pageNum: 1,
+                pageSize: 1,
+                index: 8
+            };
+            var cache = JSON.stringify(localStorageCache);
+            console.log("modify localstorage: " + cache);
+            sj_setLocalStorageWithKeyAndValue("testLocalStorage", cache);
+        }
+        // 删除 localstorage
+        function removeLocalStorage() {
+            console.log("remove localstorage: test");
+            sj_removeLocalStorageWithKey("testLocalStorage");
+        }
+        // 获取所有 localstorage
+        function getAllLocalStorage() {
+            var allLocalStorage = JSON.stringify(localStorage);
+            console.log("all localstorage: " + allLocalStorage);
+        }
+        // 刷新当前页
+        function reload() {
+            window.location.href = "http://192.168.31.3:3000/localStorageTest";
+        }
+        //--------------------------------tools ------------------------
+        // 设置 localStorage
+        function sj_setLocalStorageWithKeyAndValue(key, value) {
+            if (typeof(Storage) !== "undefined") {
+                // Store
+                localStorage.setItem(key, value);
+            } else {
+                console.log("暂不支持 localstorage");
+            }
+        }
+        // 获取 localStorage
+        function sj_getLocalStorageWithKey(key) {
+            return localStorage.getItem(key);
+        }
+        // 删除 localStorage
+        function sj_removeLocalStorageWithKey(key) {
+            localStorage.removeItem(key);
+        }
+        (function () {
+            var ls = sj_getLocalStorageWithKey("testLocalStorage");
+            if (ls) {
+                console.log("get test localStorage: " + ls);
+            }
+        })();

@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var bugs = require('./routes/bugs');
 var fixs = require('./routes/fixs');
+var storage = require('./routes/storage');
+var config = require('./config');
 
 var app = express();
 
@@ -28,6 +30,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/bugs', bugs);
 app.use('fixs', fixs);
+app.use('/storage', storage);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -59,6 +62,12 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+
+// 将配置信息设置到全局
+app.locals.config = config;
+
+
 
 
 module.exports = app;

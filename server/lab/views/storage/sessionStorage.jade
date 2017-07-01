@@ -1,0 +1,72 @@
+extends layout
+block content
+    h1= title
+    p Welcome to #{title}
+    button(onClick="setSessionStorage()") 设置 sessionStorage
+    button(onClick="getSessionStorage()") 取出 sessionStorage
+    button(onClick="modifySessionStorage()") 修改 sessionStorage
+    button(onClick="removeSessionStorage()") 删除 sessionStorage
+    button(onClick="getAllSessionStorage()") 获取所有 sessionStorage
+    button(onClick="reload()") 刷新当前页
+    //script(type="text/javascript",src="#{locals.global.app_sever_url_for_app}/javascripts/jquery-1.7.2.min.js")
+    script.
+        // 存储 SessionStorage
+        function setSessionStorage() {
+            var sessionStorageCache = {
+                pageNum: 10,
+                pageSize: 100,
+                index: 98
+            };
+            var cache = JSON.stringify(sessionStorageCache);
+            console.log("set SessionStorage: " + cache);
+            sj_setSessionStorageWithKeyAndValue("testSession", cache);
+        }
+        // 取出 SessionStorage
+        function getSessionStorage() {
+            var ss = sj_getSessionStorageWithKey("testSession");
+            console.log("get SessionStorage: " + ss);
+        }
+        // 修改 SessionStorage
+        function modifySessionStorage() {
+            var sessionStorageCache = {
+                pageNum: 1,
+                pageSize: 1,
+                index: 8
+            };
+            var cache = JSON.stringify(sessionStorageCache);
+            console.log("modify SessionStorage: " + cache);
+            sj_setSessionStorageWithKeyAndValue("testSession", cache);
+        }
+        // 删除 SessionStorage
+        function removeSessionStorage() {
+            console.log("remove SessionStorage: test");
+            sj_removeSessionStorageWithKey("testSession");
+        }
+        // 获取所有 sessionStorage
+        function getAllSessionStorage() {
+            console.log("all sessionStorage: " + JSON.stringify(sessionStorage));
+            return JSON.stringify(sessionStorage);
+        }
+        // 刷新当前页
+        function reload() {
+            window.location.href = "http://192.168.31.3:3000/sessionTest";
+        }
+        //--------------------------------tools ------------------------
+        // 设置 SessionStorage
+        function sj_setSessionStorageWithKeyAndValue(key, value) {
+            sessionStorage.setItem(key, value);
+        }
+        // 获取 SessionStorage
+        function sj_getSessionStorageWithKey(key) {
+            return sessionStorage.getItem(key);
+        }
+        // 删除 cookie
+        function sj_removeSessionStorageWithKey(key) {
+            sessionStorage.removeItem(key);
+        }
+        (function () {
+            var ss = sj_getSessionStorageWithKey("testSession");
+            if (ss) {
+                console.log("get test sessionStorage: " + ss);
+            }
+        })();
