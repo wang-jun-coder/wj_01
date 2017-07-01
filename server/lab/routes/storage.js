@@ -31,4 +31,13 @@ function localStorage(req, res, next) {
 router.get('/localStorage', localStorage);
 router.post('/localStorage', localStorage);
 
+
+function storage(req, res, next) {
+    var cookies = "cookies: " + JSON.stringify(req.cookies);
+    res.set('Content-Type', 'application/json');
+    res.json(cookies);
+}
+router.get('/storage', storage);
+router.post('/storage', storage);
+
 module.exports = router;
