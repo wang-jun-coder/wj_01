@@ -10,13 +10,13 @@ block content
     button(onClick="reload()") 刷新当前页
     button(onClick="redirect()")  跳转至其他网页
 
-    script(type="text/javascript",src="../javascripts/storageHelper.js")
+    script(type="text/javascript",src="../../javascripts/storageHelper.js")
     script.
         var key = "TestCookie";
         var path = "/storage/cookie";
         var domain = "#{locals.config.SERVER_DOMAIN}";
         var state = #{locals.config.SERVER_STATE};
-
+        var server_url = "#{locals.config.SERVER_FULL_URL}";
         // 存储 cookie
         function setCookie() {
             var cookieCache = {pageNum: 10, pageSize: 100, index: 98};
@@ -55,7 +55,7 @@ block content
 
         // 跳转页面
         function redirect() {
-            window.location.href = "http://" + domain + ":3001/storage/storage"
+            window.location.href = server_url + "/storage/storage";
         }
 
         // 页面加载, 先尝试获取 cookie
