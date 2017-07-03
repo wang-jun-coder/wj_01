@@ -37,13 +37,13 @@
 function wj_setCookie(key, value, expiresSecond, path, domain, secure, sameSite) {
 
     if(!key || key.length == 0) return;
-    if(!value || value.length == 0) return;
+    //if(!value || value.length == 0) return;
 
     // 拼接 cookie
     var cookieString = key+"="+value;
 
-    // 设置超时时间
-    if(expiresSecond && expiresSecond > 0) {
+    // 设置超时时间, 之所以不设置时间大于零, 是因为若时间点为以前的时间, 可以删除当前的 cookie 记录
+    if(expiresSecond) {
         var expires = new Date(new Date().getTime() + expiresSecond * 1000).toUTCString();
         cookieString += "; expires="+expires;
     }
