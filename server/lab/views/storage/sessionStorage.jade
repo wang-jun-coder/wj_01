@@ -10,6 +10,11 @@ block content
     button(onClick="reload()") 刷新当前页
     //script(type="text/javascript",src="#{locals.global.app_sever_url_for_app}/javascripts/jquery-1.7.2.min.js")
     script.
+        var key = "TestSession";
+        var path = "/storage/cookie";
+        var domain = "#{locals.config.SERVER_DOMAIN}";
+        var state = #{locals.config.SERVER_STATE};
+        var server_url = "#{locals.config.SERVER_FULL_URL}";
         // 存储 SessionStorage
         function setSessionStorage() {
             var sessionStorageCache = {

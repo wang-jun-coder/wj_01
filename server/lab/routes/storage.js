@@ -20,13 +20,13 @@ router.post('/cookie', cookie);
 
 
 function sessionStorage(req, res, next) {
-
+    res.render('./storage/sessionStorage');
 }
 router.get('/sessionStorage', sessionStorage);
 router.post('/sessionStorage', sessionStorage);
 
 function localStorage(req, res, next) {
-
+    res.render('./storage/localStorage');
 }
 router.get('/localStorage', localStorage);
 router.post('/localStorage', localStorage);
