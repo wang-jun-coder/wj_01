@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "server/common/package.json",
+        "server/lab/package.json"
+      ]
+    }
+  }
+}
